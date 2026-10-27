@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Command line entry point. Converts a file of card taps into a file of priced trips.
@@ -24,6 +26,8 @@ import java.util.List;
  * Defaults to {@code taps.csv} and {@code trips.csv} in the working directory.
  */
 public final class TripsApplication {
+
+    private static final Logger log = LoggerFactory.getLogger(TripsApplication.class);
 
     static final int EXIT_OK = 0;
     static final int EXIT_FAILURE = 1;
@@ -61,20 +65,26 @@ public final class TripsApplication {
         Path input = Path.of(args.length > 0 ? args[0] : DEFAULT_INPUT);
         Path output = Path.of(args.length > 1 ? args[1] : DEFAULT_OUTPUT);
 
+        log.info("Processing {} -> {}", input, output);
         try {
             List<Tap> taps = reader.read(input);
             MatchResult result = matcher.match(taps);
             writer.write(result.trips(), output);
 
+            log.info("Completed: {} taps read, {} trips written, {} unmatched",
+                    taps.size(), result.trips().size(), result.unmatchedTaps().size());
             out.printf("Read %d taps from %s and wrote %d trips to %s%n",
                     taps.size(), input, result.trips().size(), output);
             reportUnmatched(result.unmatchedTaps(), err);
             return EXIT_OK;
         } catch (IOException e) {
+            log.error("Could not process files: {}", e.getMessage());
             err.println("ERROR: could not process files: " + e);
         } catch (CsvFormatException e) {
+            log.error("Invalid input in {}: {}", input, e.getMessage());
             err.println("ERROR: invalid input in " + input + ": " + e.getMessage());
         } catch (UnknownFareException e) {
+            log.error("Fare configuration error: {}", e.getMessage());
             err.println("ERROR: " + e.getMessage());
         }
         return EXIT_FAILURE;
