@@ -1,0 +1,4 @@
+<configuration>
+    <!-- Suppress all log output during tests to keep test output clean -->
+    <root level="WARN"/>
+</configuration>
