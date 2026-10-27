@@ -3,6 +3,7 @@ package com.littlepay.trips.matching;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
+import com.littlepay.trips.model.Pans;
 import com.littlepay.trips.model.Tap;
 import com.littlepay.trips.model.Trip;
 import com.littlepay.trips.model.TripStatus;
@@ -15,6 +16,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Pairs tap ons with tap offs for each card and prices the resulting trips.
@@ -28,6 +31,8 @@ import java.util.Objects;
  * </ul>
  */
 public final class TripMatcher {
+
+    private static final Logger log = LoggerFactory.getLogger(TripMatcher.class);
 
     private static final Comparator<Tap> CHRONOLOGICAL =
             Comparator.comparing(Tap::dateTimeUtc).thenComparingLong(Tap::id);
@@ -58,19 +63,24 @@ public final class TripMatcher {
 
     private void matchCardTaps(List<Tap> cardTaps, List<Trip> trips, List<Tap> unmatched) {
         Tap pendingOn = null;
+        String maskedPan = cardTaps.isEmpty() ? "unknown" : Pans.mask(cardTaps.get(0).pan());
+        log.debug("Matching {} taps for card {}", cardTaps.size(), maskedPan);
 
         for (Tap tap : cardTaps.stream().sorted(CHRONOLOGICAL).toList()) {
             switch (tap.type()) {
                 case ON -> {
                     if (pendingOn != null) {
+                        log.debug("Card {}: tap on at {} closed as INCOMPLETE (new tap on received)", maskedPan, pendingOn.stopId());
                         trips.add(incompleteTrip(pendingOn));
                     }
                     pendingOn = tap;
                 }
                 case OFF -> {
                     if (pendingOn == null) {
+                        log.debug("Card {}: tap off at {} has no matching tap on — skipped", maskedPan, tap.stopId());
                         unmatched.add(tap);
                     } else if (!pendingOn.isOnSameVehicleAs(tap)) {
+                        log.debug("Card {}: tap off on different bus — tap on at {} closed as INCOMPLETE", maskedPan, pendingOn.stopId());
                         trips.add(incompleteTrip(pendingOn));
                         unmatched.add(tap);
                         pendingOn = null;
@@ -83,6 +93,7 @@ public final class TripMatcher {
         }
 
         if (pendingOn != null) {
+            log.debug("Card {}: tap on at {} closed as INCOMPLETE (end of input)", maskedPan, pendingOn.stopId());
             trips.add(incompleteTrip(pendingOn));
         }
     }
