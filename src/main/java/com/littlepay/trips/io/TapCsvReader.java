@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Reads taps from a CSV file with the columns:
@@ -22,10 +24,13 @@ import java.util.Locale;
  */
 public final class TapCsvReader {
 
+    private static final Logger log = LoggerFactory.getLogger(TapCsvReader.class);
+
     private static final int EXPECTED_FIELDS = 7;
     private static final char BYTE_ORDER_MARK = '﻿';
 
     public List<Tap> read(Path path) throws IOException {
+        log.debug("Reading taps from {}", path);
         try (BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
             return read(reader);
         }
@@ -52,6 +57,7 @@ public final class TapCsvReader {
             }
             taps.add(parse(line, lineNumber));
         }
+        log.debug("Parsed {} taps", taps.size());
         return taps;
     }
 
