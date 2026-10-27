@@ -18,7 +18,7 @@ Turns a CSV file of card taps (ON / OFF) into a CSV file of priced trips. Each t
 # Or choose the input and output files
 ./gradlew run --args="path/to/taps.csv path/to/trips.csv"
 
-# Or run the built jar directly (no runtime dependencies)
+# Or run the built jar directly
 java -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
 ```
 
@@ -27,6 +27,40 @@ On Windows use `gradlew.bat` instead of `./gradlew`.
 
 The exit code is `0` on success, `1` if the input cannot be read, parsed or priced, and `2` for bad
 arguments. Tap offs that cannot be matched to a tap on are listed on stderr with the card number masked.
+
+## Docker
+
+```bash
+# Build the image
+docker build -t littlepay-trips .
+
+# Run with input/output files mounted from the host
+docker run --rm \
+  -v "$(pwd)/taps.csv:/data/taps.csv:ro" \
+  -v "$(pwd)":/data \
+  littlepay-trips /data/taps.csv /data/trips.csv
+```
+
+The image uses a two-stage build: a JDK stage compiles and packages a self-contained JAR, then a
+minimal JRE stage runs it as a non-root user. The JAR includes all runtime dependencies (SLF4J +
+Logback) so no classpath setup is needed at runtime.
+
+## CI
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) triggers on every push and pull request to
+`main`. It builds the project, runs all tests, and uploads the HTML test report as a workflow
+artifact retained for 7 days.
+
+## Logging
+
+The application uses SLF4J with Logback. By default the `com.littlepay` package logs at `INFO`
+level to stderr. Set the log level to `DEBUG` for detailed per-tap matching diagnostics:
+
+```bash
+java -Dlogback.configurationFile=- -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
+```
+
+Card numbers (PANs) are masked to the last four digits in all log output.
 
 ## Example output
 
