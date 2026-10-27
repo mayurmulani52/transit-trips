@@ -1,4 +1,4 @@
-package com.littlepay.trips.model;
+package com.transit.trips.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

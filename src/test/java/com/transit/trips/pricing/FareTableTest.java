@@ -1,4 +1,4 @@
-package com.littlepay.trips.pricing;
+package com.transit.trips.pricing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

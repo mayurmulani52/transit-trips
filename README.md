@@ -1,4 +1,4 @@
-# Littlepay Trips
+# Transit Trip Processor
 
 Turns a CSV file of card taps (ON / OFF) into a CSV file of priced trips. Each trip is
 `COMPLETED`, `INCOMPLETE` or `CANCELLED`.
@@ -19,7 +19,7 @@ Turns a CSV file of card taps (ON / OFF) into a CSV file of priced trips. Each t
 ./gradlew run --args="path/to/taps.csv path/to/trips.csv"
 
 # Or run the built jar directly
-java -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
+java -jar build/libs/transit-trips-1.0.0.jar taps.csv trips.csv
 ```
 
 Arguments are optional and default to `taps.csv` and `trips.csv` in the working directory.
@@ -32,13 +32,13 @@ arguments. Tap offs that cannot be matched to a tap on are listed on stderr with
 
 ```bash
 # Build the image
-docker build -t littlepay-trips .
+docker build -t transit-trips .
 
 # Run with input/output files mounted from the host
 docker run --rm \
   -v "$(pwd)/taps.csv:/data/taps.csv:ro" \
   -v "$(pwd)":/data \
-  littlepay-trips /data/taps.csv /data/trips.csv
+  transit-trips /data/taps.csv /data/trips.csv
 ```
 
 The image uses a two-stage build: a JDK stage compiles and packages a self-contained JAR, then a
@@ -53,18 +53,18 @@ artifact retained for 7 days.
 
 ## Logging
 
-The application uses SLF4J with Logback. By default the `com.littlepay` package logs at `INFO`
+The application uses SLF4J with Logback. By default the `com.transit` package logs at `INFO`
 level to stderr. Set the log level to `DEBUG` for detailed per-tap matching diagnostics:
 
 ```bash
-java -Dlogback.configurationFile=- -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
+java -Dlogback.configurationFile=- -jar build/libs/transit-trips-1.0.0.jar taps.csv trips.csv
 ```
 
 Card numbers (PANs) are masked to the last four digits in all log output.
 
 ## Example output
 
-[`taps.csv`](taps.csv) is the example input from the brief.
+[`taps.csv`](taps.csv) is the example input.
 [`trips.csv`](trips.csv) is the output generated from it:
 
 ```

@@ -1,4 +1,4 @@
-package com.littlepay.trips.pricing;
+package com.transit.trips.pricing;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

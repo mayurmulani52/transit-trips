@@ -1,11 +1,11 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.model.TapType;
+import com.transit.trips.model.Tap;
+import com.transit.trips.model.TapType;
 import java.io.IOException;
 import java.io.StringReader;
 import java.time.LocalDateTime;

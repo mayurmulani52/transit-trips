@@ -1,4 +1,4 @@
-package com.littlepay.trips.model;
+package com.transit.trips.model;
 
 /**
  * Outcome of matching a tap on with its tap off.

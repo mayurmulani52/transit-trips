@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the security controls applied to the Littlepay Trips application,
+This document describes the security controls applied to the Transit Trip Processor application,
 the threat model for the current CLI batch-processing context, and recommendations for
 hardening before deployment as a network-accessible service.
 
@@ -17,7 +17,7 @@ applicable privacy regulations. The application handles them as follows.
 
 All PANs are masked to the last four digits before appearing in any log message, warning, or
 exception text. Masking is performed exclusively by `Pans.mask(String pan)` in
-`com.littlepay.trips.model.Pans`.
+`com.transit.trips.model.Pans`.
 
 ```
 Raw PAN:     4111111111111111
@@ -174,7 +174,7 @@ docker run --rm --read-only \
   -v "$(pwd)/taps.csv:/data/taps.csv:ro" \
   -v "$(pwd)/output:/data/output" \
   --tmpfs /tmp \
-  littlepay-trips /data/taps.csv /data/output/trips.csv
+  transit-trips /data/taps.csv /data/output/trips.csv
 ```
 
 ### 5 — Structured audit log

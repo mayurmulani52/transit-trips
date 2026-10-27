@@ -1,4 +1,4 @@
-package com.littlepay.trips.model;
+package com.transit.trips.model;
 
 /**
  * Helpers for handling card numbers safely.

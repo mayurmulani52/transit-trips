@@ -2,9 +2,8 @@
 
 ## Context
 
-Littlepay is a cloud service that enables transit companies to charge passengers for travel by
-credit card. This application implements a simplified version of the core trip-pricing pipeline:
-it reads raw tap events from buses and produces a priced trip record for each journey.
+This application implements a simplified transit trip-pricing pipeline: it reads raw tap events
+from buses and produces a priced trip record for each journey.
 
 ---
 

@@ -1,7 +1,7 @@
-package com.littlepay.trips.matching;
+package com.transit.trips.matching;
 
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.model.Trip;
+import com.transit.trips.model.Tap;
+import com.transit.trips.model.Trip;
 import java.util.List;
 
 /**

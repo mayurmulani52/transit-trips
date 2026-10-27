@@ -10,7 +10,7 @@ RUN ./gradlew jar --no-daemon -q
 # Stage 2: minimal runtime image
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /app/build/libs/littlepay-trips-1.0.0.jar app.jar
+COPY --from=build /app/build/libs/transit-trips-1.0.0.jar app.jar
 RUN addgroup -S trips && adduser -S trips -G trips
 USER trips
 ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,4 +1,4 @@
-package com.littlepay.trips.pricing;
+package com.transit.trips.pricing;
 
 /**
  * Raised when a trip touches a stop or route that has no configured fare.

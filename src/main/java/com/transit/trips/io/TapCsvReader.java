@@ -1,7 +1,7 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.model.TapType;
+import com.transit.trips.model.Tap;
+import com.transit.trips.model.TapType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;

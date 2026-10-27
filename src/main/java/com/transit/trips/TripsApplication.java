@@ -1,14 +1,14 @@
-package com.littlepay.trips;
+package com.transit.trips;
 
-import com.littlepay.trips.io.CsvFormatException;
-import com.littlepay.trips.io.TapCsvReader;
-import com.littlepay.trips.io.TripCsvWriter;
-import com.littlepay.trips.matching.MatchResult;
-import com.littlepay.trips.matching.TripMatcher;
-import com.littlepay.trips.model.Pans;
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.pricing.FareTable;
-import com.littlepay.trips.pricing.UnknownFareException;
+import com.transit.trips.io.CsvFormatException;
+import com.transit.trips.io.TapCsvReader;
+import com.transit.trips.io.TripCsvWriter;
+import com.transit.trips.matching.MatchResult;
+import com.transit.trips.matching.TripMatcher;
+import com.transit.trips.model.Pans;
+import com.transit.trips.model.Tap;
+import com.transit.trips.pricing.FareTable;
+import com.transit.trips.pricing.UnknownFareException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;

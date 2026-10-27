@@ -1,13 +1,13 @@
-package com.littlepay.trips.matching;
+package com.transit.trips.matching;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-import com.littlepay.trips.model.Pans;
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.model.Trip;
-import com.littlepay.trips.model.TripStatus;
-import com.littlepay.trips.pricing.FareTable;
+import com.transit.trips.model.Pans;
+import com.transit.trips.model.Tap;
+import com.transit.trips.model.Trip;
+import com.transit.trips.model.TripStatus;
+import com.transit.trips.pricing.FareTable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;

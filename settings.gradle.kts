@@ -1,1 +1,1 @@
-rootProject.name = "littlepay-trips"
+rootProject.name = "transit-trips"

@@ -1,9 +1,9 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.littlepay.trips.model.Trip;
-import com.littlepay.trips.model.TripStatus;
+import com.transit.trips.model.Trip;
+import com.transit.trips.model.TripStatus;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;

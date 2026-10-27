@@ -2,7 +2,7 @@ plugins {
     application
 }
 
-group = "com.littlepay"
+group = "com.transit"
 version = "1.0.0"
 
 java {
@@ -24,7 +24,7 @@ dependencies {
 }
 
 application {
-    mainClass = "com.littlepay.trips.TripsApplication"
+    mainClass = "com.transit.trips.TripsApplication"
 }
 
 tasks.named<JavaExec>("run") {

@@ -1,4 +1,4 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
 import java.time.format.DateTimeFormatter;
 

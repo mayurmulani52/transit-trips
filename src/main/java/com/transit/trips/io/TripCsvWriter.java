@@ -1,6 +1,6 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
-import com.littlepay.trips.model.Trip;
+import com.transit.trips.model.Trip;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;

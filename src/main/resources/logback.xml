@@ -9,5 +9,5 @@
     <root level="WARN">
         <appender-ref ref="STDERR"/>
     </root>
-    <logger name="com.littlepay" level="INFO"/>
+    <logger name="com.transit" level="INFO"/>
 </configuration>

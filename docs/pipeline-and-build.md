@@ -3,10 +3,10 @@
 ## Project Layout
 
 ```
-littlepay-trips/
+transit-trips/
 ├── src/
 │   ├── main/
-│   │   ├── java/com/littlepay/trips/
+│   │   ├── java/com/transit/trips/
 │   │   │   ├── TripsApplication.java        CLI entry point and orchestrator
 │   │   │   ├── io/
 │   │   │   │   ├── CsvFormat.java           Shared timestamp format and delimiter
@@ -28,7 +28,7 @@ littlepay-trips/
 │   │   └── resources/
 │   │       └── logback.xml                  Production log configuration
 │   └── test/
-│       ├── java/com/littlepay/trips/
+│       ├── java/com/transit/trips/
 │       │   ├── TripsApplicationTest.java    End-to-end file comparison tests
 │       │   ├── io/
 │       │   │   ├── TapCsvReaderTest.java
@@ -39,7 +39,7 @@ littlepay-trips/
 │       │   └── pricing/
 │       │       └── FareTableTest.java
 │       └── resources/
-│           ├── example/                     Brief's example taps and expected trips
+│           ├── example/                     Example taps and expected trips
 │           ├── scenarios/                   Extended multi-card scenario
 │           └── logback-test.xml             Suppresses log output during tests
 ├── docs/                                    Project knowledge base (this folder)
@@ -51,7 +51,7 @@ littlepay-trips/
 ├── build.gradle.kts                         Gradle build script (Kotlin DSL)
 ├── settings.gradle.kts
 ├── gradlew / gradlew.bat                    Gradle wrapper (no local Gradle needed)
-├── taps.csv                                 Example input from the brief
+├── taps.csv                                 Example input
 └── trips.csv                                Generated output from the example input
 ```
 
@@ -86,7 +86,7 @@ littlepay-trips/
 ./gradlew jar
 
 # Run the self-contained JAR directly (includes all runtime dependencies)
-java -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
+java -jar build/libs/transit-trips-1.0.0.jar taps.csv trips.csv
 ```
 
 On Windows replace `./gradlew` with `gradlew.bat`.
@@ -105,7 +105,7 @@ On Windows replace `./gradlew` with `gradlew.bat`.
 
 | Artifact | Path | Description |
 |---|---|---|
-| Fat JAR | `build/libs/littlepay-trips-1.0.0.jar` | Self-contained — includes SLF4J and Logback |
+| Fat JAR | `build/libs/transit-trips-1.0.0.jar` | Self-contained — includes SLF4J and Logback |
 | HTML test report | `build/reports/tests/test/index.html` | Human-readable test results |
 | JUnit XML results | `build/test-results/test/` | Machine-readable — consumed by CI |
 
@@ -163,7 +163,7 @@ hit avoids downloading dependencies on repeated runs.
 ### Building the image
 
 ```bash
-docker build -t littlepay-trips .
+docker build -t transit-trips .
 ```
 
 ### Multi-stage Dockerfile
@@ -184,7 +184,7 @@ docker build -t littlepay-trips .
 docker run --rm \
   -v "$(pwd)/taps.csv:/data/taps.csv:ro" \
   -v "$(pwd)":/data \
-  littlepay-trips /data/taps.csv /data/trips.csv
+  transit-trips /data/taps.csv /data/trips.csv
 ```
 
 The application runs as a non-root user (`trips`) inside the container — no root privileges
@@ -198,20 +198,20 @@ Logging is provided by SLF4J with Logback. The default configuration at
 `src/main/resources/logback.xml` sets:
 
 - Root level: `WARN`
-- `com.littlepay` package: `INFO`
+- `com.transit` package: `INFO`
 - Output: `System.err`, pattern `HH:mm:ss.SSS LEVEL logger - message`
 
 To enable `DEBUG`-level tap-matching diagnostics, replace the logger level in `logback.xml`:
 
 ```xml
-<logger name="com.littlepay" level="DEBUG"/>
+<logger name="com.transit" level="DEBUG"/>
 ```
 
 Or supply a custom configuration file at runtime:
 
 ```bash
 java -Dlogback.configurationFile=/path/to/logback-debug.xml \
-     -jar build/libs/littlepay-trips-1.0.0.jar taps.csv trips.csv
+     -jar build/libs/transit-trips-1.0.0.jar taps.csv trips.csv
 ```
 
 All log statements that reference card numbers use `Pans.mask(pan)` — raw PANs never appear

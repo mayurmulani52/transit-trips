@@ -1,21 +1,21 @@
-package com.littlepay.trips.matching;
+package com.transit.trips.matching;
 
-import static com.littlepay.trips.matching.TapBuilder.MASTERCARD_TEST_PAN;
-import static com.littlepay.trips.matching.TapBuilder.VISA_TEST_PAN;
-import static com.littlepay.trips.matching.TapBuilder.off;
-import static com.littlepay.trips.matching.TapBuilder.on;
-import static com.littlepay.trips.matching.TapBuilder.tap;
+import static com.transit.trips.matching.TapBuilder.MASTERCARD_TEST_PAN;
+import static com.transit.trips.matching.TapBuilder.VISA_TEST_PAN;
+import static com.transit.trips.matching.TapBuilder.off;
+import static com.transit.trips.matching.TapBuilder.on;
+import static com.transit.trips.matching.TapBuilder.tap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.littlepay.trips.model.Tap;
-import com.littlepay.trips.model.TapType;
-import com.littlepay.trips.model.Trip;
-import com.littlepay.trips.model.TripStatus;
-import com.littlepay.trips.pricing.FareTable;
-import com.littlepay.trips.pricing.UnknownFareException;
+import com.transit.trips.model.Tap;
+import com.transit.trips.model.TapType;
+import com.transit.trips.model.Trip;
+import com.transit.trips.model.TripStatus;
+import com.transit.trips.pricing.FareTable;
+import com.transit.trips.pricing.UnknownFareException;
 import java.math.BigDecimal;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

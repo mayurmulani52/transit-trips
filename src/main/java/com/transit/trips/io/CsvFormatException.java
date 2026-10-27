@@ -1,4 +1,4 @@
-package com.littlepay.trips.io;
+package com.transit.trips.io;
 
 /**
  * Raised when a line in an input file cannot be parsed.
